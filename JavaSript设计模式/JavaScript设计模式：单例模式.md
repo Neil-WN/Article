@@ -365,14 +365,13 @@ var createWarnModal = (function () {
   var div = null;
   return function () {
     if (!div) {
-      var div = document.createElement('div');
+      div = document.createElement('div');
       div.innerHTML = '<p>你还未登录</p><button>确定</button>';
       div.style.display = 'none';
       document.body.appendChild(div);
     }
+    return div;
   }
-  
-  return div;
 })();
 
 // 我们借助jQuery库来发起ajax请求
