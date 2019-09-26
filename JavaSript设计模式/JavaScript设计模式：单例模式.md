@@ -18,7 +18,7 @@
 
 ## 1. 什么是单例模式
 
-单例模式是一种简单且常用的设计模式，该模式规定了一个类必须保证只有一个一个实例，这意味着第二次使用同一个类创建新对象的时候，应该与第一个实例对象完全相同。因此也就不难明白为什么该模式名为单例：单一（唯一）的实例。
+单例模式是一种简单且常用的设计模式，该模式规定了一个类必须保证只有一个实例，这意味着第二次使用同一个类创建新对象的时候，应该与第一个实例对象完全相同。因此也就不难明白为什么该模式名为单例：单一（唯一）的实例。
 
 ### 1.1. 使用“类”的方式
 
@@ -46,10 +46,10 @@ var Person = function (name) {
   }
 
   this.name = name;
-  this.instance = null
+  this.instance = null;
   // 缓存实例
   Person.instance = this;
-}
+};
 
 var p1 = new Person('Neil-1');
 var p2 = new Person('Neil-2');
@@ -160,7 +160,7 @@ if (typeof MYAPP !== 'undefined') {
 
 ```javascript
 // 对最外层的命名空间预检
-var MYAPP = MYAPP || {}
+var MYAPP = MYAPP || {};
 
 MYAPP.namescape = function (name) {
   var parts = name.split('.');
@@ -186,13 +186,13 @@ var Person = (function () {
   var name = 'Neil';
   // 定义私有方法
   var showName = function (name) {
-    console.log(name)
-  }
+    console.log(name);
+  };
 
   // 暴露外部的公共API
   return {
     getName: function () {
-      showName(name)
+      showName(name);
     }
   }
 })();
@@ -211,10 +211,10 @@ Person.Man.Old = (function () {
   var age = 60;
   // 私有方法
   var getName = function () {
-    console.log(name)
+    console.log(name);
   }
   var getAge = function () {
-    console.log(age)
+    console.log(age);
   }
   // 公有API，唯一的出口
   return {
@@ -242,7 +242,7 @@ Person.getInstance = function (name) {
   return this.instance;
 };
 
-var p = Person.getInstance('Neil')
+var p = Person.getInstance('Neil');
 ```
 
 以上就是一个简单的惰性单例，只有当需要的时候才会去调用`Person.getInstance()`方法。当然，这个示例的实际作用并不大，具体的应用我们会在第四节中展示。
@@ -251,9 +251,7 @@ var p = Person.getInstance('Neil')
 
 前面我们提到，JavaScript是没有“类”的概念的，但自从ES6出现后，我们也可以使用和其他静态类型语言一样的方法去创建单例。那要如果去实现呢？我们又双叒叕要从单例模式的定义入手了，以下是来自维基百科的定义：
 
-```
-实现单例模式的思路是：一个类能返回对象一个引用(永远是同一个)和一个获得该实例的方法（必须是静态方法，通常使用getInstance这个名称）；当我们调用这个方法时，如果类持有的引用不为空就返回这个引用，如果类保持的引用为空就创建该类的实例并将实例的引用赋予该类保持的引用；同时我们还将该类的构造函数定义为私有方法，这样其他处的代码就无法通过调用该类的构造函数来实例化该类的对象，只有通过该类提供的静态方法来得到该类的唯一实例。
-```
+> 实现单例模式的思路是：一个类能返回对象一个引用(永远是同一个)和一个获得该实例的方法（必须是静态方法，通常使用getInstance这个名称）；当我们调用这个方法时，如果类持有的引用不为空就返回这个引用，如果类保持的引用为空就创建该类的实例并将实例的引用赋予该类保持的引用；同时我们还将该类的构造函数定义为私有方法，这样其他处的代码就无法通过调用该类的构造函数来实例化该类的对象，只有通过该类提供的静态方法来得到该类的唯一实例。
 
 由上可知，实现单例需要满足以下几个条件：
 
@@ -283,7 +281,7 @@ class Person {
 
 let p1 = Person.getInstance('Neil-1');
 let p2 = Person.getInstance('Neil-2');
-console.log(p1 === p2)  // true
+console.log(p1 === p2);  // true
 ```
 
 上述代码中完全满足了实现单例模式的3个条件，并在创建的时候返回了唯一的示例。
@@ -314,7 +312,7 @@ export default Person;
 
 假设我们的项目中有个确认登录的弹窗，当用户没有登录的时候，就会弹出以下提示弹框。显然这个弹框在整个页面中有且只需要一个。
 
-![https://github.com/Neil-WN/MarkdownPhotos/blob/master/images/singleton-example.png]()
+![](https://github.com/Neil-WN/MarkdownPhotos/blob/master/images/singleton-example.png)
 
 通常我们会在页面加载完成的时候就先创建好这个弹窗，当用户点击请求数据按钮的时候，如果后端接口返回了未登录的信息，则这个弹窗就会显示，否则会一直隐藏。
 
